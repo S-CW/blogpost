@@ -1,0 +1,20 @@
+<%- include('partials/header'); -%>
+
+<h1>Home</h1>
+
+<p> <%= homeStartingContent %> </p>
+
+ <!-- Loop through myPost array from app.js using forEach -->
+ <% posts.forEach(function(param) { %>
+
+    <h1> <%= param.title %> </h1>
+    <p> <%= param.content.substring(0, 100)  +  '. . .' %> </p>
+    <a href="/post/<%= param.title %>">Read More</a>
+
+<% }); %>
+<form action="/compose">
+        <button type="submit" class="btn btn-primary button-margin">Create New Post</button>  
+</form>
+
+
+<%- include('partials/footer'); -%>
