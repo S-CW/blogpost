@@ -1,7 +1,18 @@
 <%- include('partials/header'); -%>
 
-<h1> <%= title %> </h1> 
+<form action="/post/<%= postIndex %>" method="post">
+  <div class="mb-3">
+    <label for="postTitleForm" class="form-label">Title</label>       
+    <input type="text" name="postTitle" class="form-control" id="postTitleForm" placeholder="" value="<%= title %>">        
+  </div>
+  <div class="mb-3">
+    <label for="postForm" class="form-label">Post</label>
+    <textarea name="postBody" class="form-control" id="postForm" style="height: 100px"><%= content %></textarea>               
+  </div>
+  <button type="submit" class="btn btn-primary">Update</button>
+  <a href="/">
+    <button type="button" class="btn btn-primary">Cancel</button>  
+  </a>
+</form>
 
-<p> <%= content %> </p>
- 
 <%- include('partials/footer'); -%>

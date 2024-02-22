@@ -13,56 +13,61 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.get('/', (req, res) => {
-  res.render('home', {homeStartingContent: homeStartingContent, posts: myPosts});
+app.get('/', (req, res) =>
+{
+  res.render('home', { homeStartingContent: homeStartingContent, posts: myPosts });
 });
 
-app.get('/contact', (req, res) => {
-  res.render('contact', {contactContent: contactContent});
+app.get('/contact', (req, res) =>
+{
+  res.render('contact', { contactContent: contactContent });
 });
 
-app.get('/about', (req, res) => {
-  res.render('about', {aboutContent: aboutContent});
+app.get('/about', (req, res) =>
+{
+  res.render('about', { aboutContent: aboutContent });
 });
 
-app.get('/compose', (req, res) => {
-  res.render('compose')
-});
-
-app.get('/post/:postName', (req, res) => {
-
-  const requestedTitle = _.lowerCase(req.params.postName);
-  
-  // Loop through the array for specific data
-  myPosts.forEach(function(posted) {
-    const storedTitle = _.lowerCase(posted.title);
-
-    // Render page using post title as condition
-    if (requestedTitle === storedTitle) {
-      res.render('post', {title: posted.title, content: posted.content});
+app.route('/compose')
+  .get((req, res) =>
+  {
+    res.render('compose')
+  })
+  .post((req, res) =>
+  {
+    const post = {
+      title: req.body.postTitle,
+      content: req.body.postBody
     };
 
+    myPosts.push(post);
+
+    res.redirect('/');
   });
 
-});
+app.route('/post/:postIndex')
+  .get((req, res) =>
+  {
+    const requestedPost = myPosts[req.params.postIndex];
 
-app.post('/compose', (req, res) => {
-  const post = {
-    title: req.body.postTitle,
-    content : req.body.postBody
-  };
+    res.render('post', { title: requestedPost.title, content: requestedPost.content, postIndex: req.params.postIndex });
+  })
+  .post((req, res) =>
+  {
+    const requestedPost = myPosts[req.params.postIndex];
 
-  myPosts.push(post);
-  
-  res.redirect('/');
-  
-})
+    requestedPost.title = req.body.postTitle
+    requestedPost.content = req.body.postBody
+
+    res.redirect('/');
+  });
 
 
 
-app.listen(3000, function() {
+app.listen(3000, function ()
+{
   console.log("Server started on port 3000");
 });
