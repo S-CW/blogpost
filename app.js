@@ -64,6 +64,18 @@ app.route('/post/:postIndex')
 
     res.redirect('/');
   });
+  
+  
+  app.post('/post-delete', (req, res) => {
+    const postIndex = req.body.postIndex;
+
+    myPosts.splice(postIndex, 1);
+
+    res.redirect('/');
+  });
+
+
+  
 
 
 
