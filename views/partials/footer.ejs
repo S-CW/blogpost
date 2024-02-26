@@ -7,3 +7,22 @@
 </footer>
 </body>
 </html>
+
+<script>
+
+  $(document).ready(function() {
+    $('form[name="post-form"]').validate({
+      rules: {
+        postTitle: {
+          required: true
+        }
+      },
+      messages: {
+        postTitle: {
+          required: "post title cannot be empty"
+        }
+      }
+    })
+  });
+
+</script>

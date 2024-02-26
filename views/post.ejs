@@ -1,6 +1,6 @@
 <%- include('partials/header'); -%>
 
-<form action="/post/<%= postIndex %>" method="post">
+<form name="post-form" action="/post/<%= postIndex %>" method="post">
   <div class="mb-3">
     <label for="postTitleForm" class="form-label">Title</label>       
     <input type="text" name="postTitle" class="form-control" id="postTitleForm" placeholder="" value="<%= title %>">        
